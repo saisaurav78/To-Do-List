@@ -1,0 +1,95 @@
+*{
+  box-sizing: border-box;
+  font-family: "Bebas Neue";
+  font-weight: 400;
+  font-size: 30px;
+  margin: 20px auto;
+}
+
+h2 {
+  text-align: center;
+  font-size: 35px;
+}
+
+.container {
+  width: max-content;
+  height: max-content;
+  border: 1.5px solid black;
+  border-radius: 10px;
+  background-color: #beb9b9;
+}
+
+.container:hover {
+  box-shadow: 2px 5px 10px 1px rgba(0, 0, 0, 0.5);
+  transition: all 0.21s ease-in-out;
+}
+
+input {
+  border-radius: 5px;
+  height: 60px;
+  width: 600px;
+  border: 1px solid black;
+  margin-left: 5px;
+  border: none;
+  background-color: #d8f2f8;
+}
+
+#add_btn {
+  margin-right: 10px;
+}
+
+input:focus{
+  box-shadow: 2px 2px 8px 4px rgba(118, 158, 175);
+  transition: ease-in-out 0.2s;
+}
+
+button {
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  padding: 1px;
+  text-align: center;
+  background: none;
+  border: none;
+}
+
+button:hover {
+  box-shadow: 2px 2px 8px 4px rgba(118, 158, 175);
+  transition: ease-in-out 0.2s;
+  color: white;
+  background-color: rgba(118, 158, 175);
+}
+
+li {
+  font-size: 40px;
+  font-weight: 250;
+  text-align: start;
+  user-select: none;
+}
+@media screen and (max-width:768px) {
+  .container{
+    width: 95%;
+  }
+  input{
+    width: 95%;
+  }
+} 
+@media screen and (max-width:500px) {
+  .container{
+    width: 85%;
+  }
+  input{
+    width: 85%;
+  }
+} 
+@media screen and (max-width:300px) {
+  .container{
+    width: 75%;
+  }
+  input{
+    width: 75%;
+  }
+} 
+
+
+
