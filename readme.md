@@ -1,4 +1,11 @@
 # To-Do App
-[live-demo](https://saisaurav78.github.io/To-Do-List/)
-This project is about a simple TO-DO List app , where you can CREATE, READ , UPDATE and Delete Tasks
-I have made this project using HTML, CSS and JavaScript upto what i learnt so far.
+
+## Project Overview
+
+This project is a simple To-Do List application that allows users to manage tasks efficiently. The app provides functionalities to:
+
+- **Create** new tasks
+- **Read** or view existing tasks
+- **Update** tasks, including editing and marking them as done
+- **Delete** tasks
+- **Save** tasks to local storage for persistence
