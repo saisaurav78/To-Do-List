@@ -1,75 +1,151 @@
+// Function to save tasks to localStorage
+function SaveTasks() {
+  let tasks = [];
+  document.querySelectorAll("#list li").forEach((item) => {
+    tasks.push(item.innerText);
+  });
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+// Function to unsave (clear) tasks from localStorage
+function ClearTasks() {
+  if (confirm("Are you sure you want to unsave all tasks?")) {
+      localStorage.removeItem("tasks");
+      alert("unsaved successfully")
+  }
+}
+
+// Initialize save state
+let isSaved = false; 
+
+// Function to create a button
+function createbtn(classname, innerHTML, title) {
+  let btn = document.createElement("button");
+  btn.className = classname;
+    btn.innerHTML = innerHTML;
+    btn.title=title
+  return btn;
+}
+// Create Save/Unsave button
+const SaveTasksbtn = createbtn("save", '<i class="far fa-save"></i>', 'save button');
+
+
+// Add event listener to save button
+SaveTasksbtn.addEventListener("click", () => {
+    if (!isSaved) {
+    // When isSaved is false, save tasks
+    isSaved = true;
+      SaveTasks();
+    alert("Saved successfully");
+      isSaved ? (SaveTasksbtn.innerHTML = '<i class="fas fa-save"></i>') : '<i class="far fa-save"></i>';   // Set isSaved to true after saving
+  } else {
+      ClearTasks();
+      isSaved = false; // Set isSaved to false after clearing
+    SaveTasksbtn.innerHTML = '<i class="far fa-save"></i>'
+  }
+ });
+
+
+
+// Function to get tasks from localStorage and append them to the container
+function getTasks(todocontainer) {
+  const items = JSON.parse(localStorage.getItem("tasks") || []);
+  items.forEach((item) => {
+    const task = createTaskElement(item);
+    todocontainer.appendChild(task);
+  });
+}
+
+window.onload = () => {
+  getTasks(list);
+};
+
+
+// Get DOM elements
 const tb = document.getElementById("tb");
-const btn = document.getElementById("add_btn");
-const btns = document.getElementById("btns");
-let count = 0;
-let done_count = 1;
-function add()
-{
-    var x = tb.value;
-    if (count >= 5)
-    {
-        alert("Task Limit Reached");
+const add_btn = document.getElementById("add_btn");
+const list = document.querySelector("#list");
+const container = document.querySelector(".container");
+
+
+
+
+// Function to create a task element with buttons
+function createTaskElement(text) {
+  const task = document.createElement("li");
+  task.innerText = text + "     ";
+
+  const btnContainer = document.createElement("div");
+  btnContainer.className = "btn_container";
+
+  const delbtn = createbtn("del", '<i class="fa-solid fa-trash"></i>','delete button');
+  delbtn.addEventListener("click", () => {
+    list.removeChild(task);
+  });
+
+  const donebtn = createbtn("done", '<i class="fa-solid fa-check"></i>','done button');
+  donebtn.addEventListener("click", () => {
+    if (task.classList.contains("li_done")) {
+      task.classList.remove("li_done")
     }
-    else if (x != "" && count <= 5)
-    {
-        count++;
-        let p = document.createElement("li");
-        let d = document.createElement("div")
-        let delbtn = document.createElement("button")
-        delbtn.style.marginRight = "20px"
-        let donebtn = document.createElement("button")
-        donebtn.style.marginRight="20px"
-        let editbtn = document.createElement("button")
-        p.innerText = "" + x + "     "
-        document.getElementById("list").appendChild(p).appendChild(d)
-        d.appendChild(delbtn).innerText="❌"
-        d.appendChild(donebtn).innerText="✅"
-        d.appendChild(editbtn).innerText = "📝"
-     function Done() {
-            done_count++
-         if (done_count % 2 == 0) {
-             p.style.textDecoration = "line-through";
-             p.style.textDecorationThickness = "5px"; 
-         }
-         else {
-             p.style.textDecoration = "none";
-            }
-        }
-    donebtn.addEventListener("click", Done);
-     function dlt() {
-         document.getElementById("list").removeChild(p)
-         count--
-         }
-        delbtn.addEventListener("click", dlt);
-        edit_count = 0;
-        function edit() {
-            edit_count++
-            if (edit_count<2) {
-                eb = document.createElement("button");
-                eb.innerText = "✅";
-                ed = document.createElement("input")
-                p.appendChild(ed)
-                p.appendChild(eb)
-                ed.style.marginRight="10px";
-                ed.value = x
-                if (ed.value != "") {
-                    function edone() {
-                        z = ed.value
-                        p.innerText = "" + z + "     "
-                        p.appendChild(d)
-                        edit_count--
-                    }
-                    eb.addEventListener("click", edone)
-                }
-            }
-        }
-        editbtn.addEventListener("click", edit)
-}
-
     else {
-            alert("please enter valid input")
-        }
-    tb.value = ""
+      task.classList.add("li_done")
+    }
+  });
+
+  const editbtn = createbtn( "edit",'<i class="fa-solid fa-pen-to-square"></i>','edit button');
+  editbtn.addEventListener("click", () => {
+    const editInput = document.createElement("input");
+      editInput.style.height = "45px";
+      const text= task.innerText
+    editInput.value = text.trim();
+
+    const editdone = document.createElement("button");
+    editdone.className = "editdone";
+    editdone.innerHTML = '<i class="fa-solid fa-check"></i>';
+    editdone.style.marginLeft = "20px";
+    editdone.addEventListener("click", () => {
+      task.innerHTML = editInput.value + "     ";
+      task.appendChild(btnContainer);
+
+    });
+
+    task.innerHTML = ""; // Clear existing content
+    task.append(editInput, editdone);
+
+    editInput.focus();
+    editInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        editdone.click();
+      }
+    });
+  });
+
+  container.appendChild(SaveTasksbtn);
+  btnContainer.append(donebtn, editbtn, delbtn);
+  task.appendChild(btnContainer);
+
+  return task;
 }
 
-btn.addEventListener("click", add);
+// Function to add a new task
+function add() {
+  const text = tb.value.trim();
+  if (text) {
+    const task = createTaskElement(text);
+    list.appendChild(task);
+    tb.value = ""; // Clear the input field
+  } else {
+    alert("The task field is empty. Please enter a task to add it.");
+  }
+}
+
+// Event listeners for adding tasks
+add_btn.addEventListener("click", add);
+tb.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    add();
+  }
+});
+
+

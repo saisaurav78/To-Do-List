@@ -1,41 +1,40 @@
 *{
   box-sizing: border-box;
-  font-family: "Bebas Neue";
-  font-weight: 400;
-  font-size: 30px;
+  font-family: "Poppins",sans-serif;
   margin: 20px auto;
+  padding: 0;
 }
-
+body{
+   background: linear-gradient(to right, #306ec4, #3e95d3, #73b9da, #b0dae4, #f1f8f8);
+}
 h2 {
   text-align: center;
-  font-size: 35px;
+  font-size: 2rem;
+  font-weight: 450;
 }
 
 .container {
-  width: max-content;
-  height: max-content;
-  border: 1.5px solid black;
+  width: 60%;
+  min-height: max-content;
   border-radius: 10px;
-  background-color: #beb9b9;
+  text-align: center;
+  background: none;
 }
-
-.container:hover {
-  box-shadow: 2px 5px 10px 1px rgba(0, 0, 0, 0.5);
-  transition: all 0.21s ease-in-out;
-}
-
-input {
-  border-radius: 5px;
-  height: 60px;
-  width: 600px;
+input{
+  border-radius: 10px;
+  height: 55px;
+  width: 85%;
   border: 1px solid black;
   margin-left: 5px;
   border: none;
   background-color: #d8f2f8;
+  font-size: 2rem;
+  font-weight: 600;
 }
 
 #add_btn {
-  margin-right: 10px;
+  margin-left: 10px;
+  color: #000;
 }
 
 input:focus{
@@ -47,49 +46,86 @@ button {
   border-radius: 5px;
   text-align: center;
   cursor: pointer;
-  padding: 1px;
   text-align: center;
   background: none;
   border: none;
+  font-size: 2rem;
 }
 
-button:hover {
+#add_btn:hover {
   box-shadow: 2px 2px 8px 4px rgba(118, 158, 175);
   transition: ease-in-out 0.2s;
   color: white;
   background-color: rgba(118, 158, 175);
 }
-
-li {
-  font-size: 40px;
-  font-weight: 250;
-  text-align: start;
-  user-select: none;
+i{
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font-size: 1.8rem;
 }
-@media screen and (max-width:768px) {
-  .container{
+i:hover{
+  box-shadow: 2px 2px 8px 4px rgba(118, 158, 175);
+  transition: ease-in-out 0.22s;
+  color: white;
+  background-color: rgba(118, 158, 175);
+}
+ol{
+  list-style-type: none;
+}
+li {
+  font-size:3rem;
+  font-weight: 400;
+  text-align:start;
+  user-select: none;
+  overflow-wrap: break-word;
+  background-color: #b0dae4;
+  margin: 20px;
+  height: fit-content;
+  padding: 0;
+}
+.li_done{
+  text-decoration: line-through;
+  text-decoration-thickness: 5px;
+}
+
+.del,.edit,.save,.done{
+  padding: 0;
+  margin: 0;
+}
+
+.btn_container{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+@media screen and (max-width: 768px) {
+  .container {
     width: 95%;
   }
-  input{
+  input {
     width: 95%;
   }
-} 
-@media screen and (max-width:500px) {
-  .container{
-    width: 85%;
-  }
-  input{
-    width: 85%;
-  }
-} 
-@media screen and (max-width:300px) {
-  .container{
-    width: 75%;
-  }
-  input{
-    width: 75%;
-  }
-} 
+}
 
-
-
+@media screen and (max-width: 500px) {
+  .container {
+    width: 90%;
+  }
+  input {
+    width: 90%;
+  }
+}
+@media screen and (max-width: 300px) {
+  .container {
+    width: 95%;
+  }
+  input {
+    width: 90%;
+  }
+}
+  /* <div class="taskmeter">
+    <h1 class="done_t">0</h1>
+    <h1>/</h1>
+    <h1 class="pending_t">0</h1>
+  </div> */
